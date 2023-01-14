@@ -1,13 +1,9 @@
 package com.driver.services;
 
-import com.driver.RequestDto.UserRequestDto;
 import com.driver.models.*;
 import com.driver.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserService {
@@ -18,11 +14,6 @@ public class UserService {
     BlogService blogService3;
 
     public void createUser(User user){
-//        User user1 = new User();
-//        user.setUserName(user1.getFirstName());
-//        user.setPassword(user1.getPassword());
-//        user.setFirstName(user1.getFirstName());
-//        user.setLastName(user1.getLastName());
         userRepository3.save(user);
     }
 

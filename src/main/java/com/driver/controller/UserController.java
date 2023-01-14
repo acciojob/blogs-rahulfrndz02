@@ -14,8 +14,6 @@ public class UserController {
 
     @Autowired
     UserService userService;
-    @Autowired
-    private UserRepository userRepository;
 
     @PostMapping("/create")
     public ResponseEntity<Void> createUser(@RequestBody User user) {
