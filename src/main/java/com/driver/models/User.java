@@ -22,17 +22,17 @@ public class User{
 
     //connection with blog
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Blog> listOfBlogs;
+    private List<Blog> blogList;
 
     public User() {
     }
 
-    public User(String username, String password, String firstName, String lastName, List<Blog> listOfBlogs) {
+    public User(String username, String password, String firstName, String lastName, List<Blog> blogList) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.listOfBlogs = listOfBlogs;
+        this.blogList = blogList;
     }
 
     public int getId() {
@@ -43,12 +43,12 @@ public class User{
         this.id = id;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUserName(String userName) {
-        this.username = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -76,10 +76,10 @@ public class User{
     }
 
     public List<Blog> getBlog() {
-        return listOfBlogs;
+        return blogList;
     }
 
     public void setBlog(List<Blog> blog) {
-        this.listOfBlogs = blog;
+        this.blogList = blog;
     }
 }
