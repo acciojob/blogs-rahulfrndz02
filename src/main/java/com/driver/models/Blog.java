@@ -19,7 +19,6 @@ public class Blog{
     private String content;
 
     @CreationTimestamp
-    @Temporal(value = TemporalType.TIMESTAMP)
     private Date pubDate;
 
     //connection with user
@@ -34,12 +33,9 @@ public class Blog{
     public Blog() {
     }
 
-    public Blog(String title, String content, Date pubDate, User user, List<Image> imageList) {
+    public Blog(String title, String content) {
         this.title = title;
         this.content = content;
-        this.pubDate = pubDate;
-        this.user = user;
-        this.imageList = imageList;
     }
 
     public int getId() {

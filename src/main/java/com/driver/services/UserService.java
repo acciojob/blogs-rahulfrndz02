@@ -21,10 +21,22 @@ public class UserService {
     }
 
     public void deleteUser(int userId){
-        userRepository3.deleteById(userId);
+        if(userRepository3.findById(userId).isPresent())
+        {
+            userRepository3.deleteById(userId);
+        }
     }
 
     public void updateUser(User user){
+        User currentUser = userRepository3.findByUsername(user.getUsername());
+        if (currentUser != null){
+            currentUser.setUsername(user.getUsername());
+            currentUser.setFirstName(user.getFirstName());
+            currentUser.setLastName(user.getLastName());
+            currentUser.setPassword(user.getPassword());
+
+            userRepository3.save(currentUser);
+        }
         userRepository3.save(user);
     }
 

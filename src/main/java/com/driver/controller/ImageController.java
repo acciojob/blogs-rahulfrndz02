@@ -19,8 +19,7 @@ public class ImageController {
 
     @Autowired
     ImageService imageService;
-    @Autowired
-    private BlogRepository blogRepository;
+
     @Autowired
     private ImageRepository imageRepository;
 
@@ -34,15 +33,13 @@ public class ImageController {
 
     @GetMapping("/countImagesInScreen/{id}/{screenDimensions}")
     public ResponseEntity<Integer> countImagesInScreen(@PathVariable int id, @PathVariable String screenDimensions){
-        Image image = imageService.findById(id);
-        int count = imageService.countImagesInScreen(image, screenDimensions);
+        int count = imageService.countImagesInScreen(imageRepository.findById(id).get(), screenDimensions);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteImage(@PathVariable int id) {
-        Image image = imageService.findById(id);
-        imageService.deleteImage(image);
+        imageService.deleteImage(imageRepository.findById(id).get());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -26,26 +26,22 @@ public class BlogService {
 
     public List<Blog> showBlogs(){
         //find all blogs
-        return blogRepository1.findAll();
+        List<Blog> blogList=blogRepository1.findAll();
+        return blogList;
     }
 
     public void createAndReturnBlog(Integer userId, String title, String content) {
         //create a blog at the current time
-        Blog blog = new Blog();
-        blog.setContent(content);
-        blog.setTitle(title);
-        long milliSecond = System.currentTimeMillis();
 
-        blog.setPubDate(new Date(milliSecond));
+        User user=userRepository1.findById(userId).get();
 
-        //updating the blog details
+        Blog blog=new Blog(title,content);
 
-        //Updating the userInformation and changing its blogs
-        User user = userRepository1.findById(userId).get();
         blog.setUser(user);
-        List<Blog> blogList = user.getBlog();
+
+        List<Blog> blogList=user.getBlogList();
         blogList.add(blog);
-        user.setBlog(blogList);
+        user.setBlogList(blogList);
 
         userRepository1.save(user);
 
@@ -59,20 +55,25 @@ public class BlogService {
 
     public void addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog after creating it
-        Image imageObj = new Image(); //creating image
-        imageObj.setDescription(description);
-        imageObj.setDimensions(dimensions);
-        Blog blog = findBlogById(blogId);
-        imageObj.setBlog(blog);
-        List<Image> listOfImages = blog.getImageList();
-        listOfImages.add(imageObj);
-        blog.setImageList(listOfImages);
+        Blog blog=blogRepository1.findById(blogId).get();
+
+        Image image=imageService1.createAndReturn(blog,description,dimensions);
+
+        image.setBlog(blog);
+
+        List<Image> imageList=blog.getImageList();
+        if(imageList==null) imageList=new ArrayList<>();
+        imageList.add(image);
+        blog.setImageList(imageList);
+
         blogRepository1.save(blog);
 
     }
 
     public void deleteBlog(int blogId){
         //delete blog and corresponding images
-        blogRepository1.deleteById(blogId);
+        if(blogRepository1.findById(blogId).isPresent()){
+            blogRepository1.deleteById(blogId);
+        }
     }
 }

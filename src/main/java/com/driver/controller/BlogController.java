@@ -1,6 +1,7 @@
 package com.driver.controller;
 
 import com.driver.models.*;
+import com.driver.repositories.BlogRepository;
 import com.driver.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,14 +17,17 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
-    @GetMapping
+    @Autowired
+    BlogRepository blogRepository;
+
+    @GetMapping("/get_no_of_blogs")
     public ResponseEntity<Integer> getAllBlogs() {
-        int countOfBlogs = 0;
-        countOfBlogs = blogService.showBlogs().size();
+        List<Blog> totalBlogs=blogRepository.findAll();
+        int countOfBlogs = totalBlogs.size();
         return new ResponseEntity<>(countOfBlogs, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity createBlog(@RequestParam Integer userId ,
                                            @RequestParam String title,
                                            @RequestParam String content) {

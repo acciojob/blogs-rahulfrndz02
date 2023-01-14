@@ -27,12 +27,11 @@ public class User{
     public User() {
     }
 
-    public User(String username, String password, String firstName, String lastName, List<Blog> blogList) {
+    public User(String username, String password, String firstName, String lastName) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.blogList = blogList;
     }
 
     public int getId() {
@@ -75,11 +74,11 @@ public class User{
         this.lastName = lastName;
     }
 
-    public List<Blog> getBlog() {
+    public List<Blog> getBlogList() {
         return blogList;
     }
 
-    public void setBlog(List<Blog> blog) {
-        this.blogList = blog;
+    public void setBlogList(List<Blog> blogList) {
+        this.blogList = blogList;
     }
 }
