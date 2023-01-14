@@ -13,16 +13,17 @@ import java.util.List;
 @RequestMapping("/blogs")
 public class BlogController {
 
-    @GetMapping
+    @GetMapping("/get-all")
     public ResponseEntity<Integer> getAllBlogs() {
         int countOfBlogs = 0;
         return new ResponseEntity<>(countOfBlogs, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create-blog")
     public ResponseEntity createBlog(@RequestParam Integer userId ,
                                            @RequestParam String title,
                                            @RequestParam String content) {
+
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -35,7 +36,6 @@ public class BlogController {
 
     @DeleteMapping("/{blogId}")
     public ResponseEntity<Void> deleteBlog(@PathVariable int blogId) {
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
