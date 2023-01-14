@@ -16,15 +16,14 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
-    @GetMapping("/get-all")
+    @GetMapping
     public ResponseEntity<Integer> getAllBlogs() {
         int countOfBlogs = 0;
-        List<Blog> blogList =blogService.showBlogs();
-        countOfBlogs = blogList.size();
+        countOfBlogs = blogService.showBlogs().size();
         return new ResponseEntity<>(countOfBlogs, HttpStatus.OK);
     }
 
-    @PostMapping("/create-blog")
+    @PostMapping
     public ResponseEntity createBlog(@RequestParam Integer userId ,
                                            @RequestParam String title,
                                            @RequestParam String content) {
@@ -35,7 +34,7 @@ public class BlogController {
 
     @PutMapping("/{blogId}/add-image")
     public ResponseEntity<String> addImage(@PathVariable int blogId, @RequestParam String description, @RequestParam String dimensions) {
-            blogService.addImage(blogId, description, dimensions);
+            //blogService.addImage(blogId, description, dimensions);
             return new ResponseEntity<>("Added image successfully", HttpStatus.OK);
     }
 

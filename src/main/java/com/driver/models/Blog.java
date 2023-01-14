@@ -20,7 +20,7 @@ public class Blog{
 
     @CreationTimestamp
     @Temporal(value = TemporalType.TIMESTAMP)
-    private Date publishDate;
+    private Date pubDate;
 
     //connection with user
     @ManyToOne
@@ -34,11 +34,10 @@ public class Blog{
     public Blog() {
     }
 
-    public Blog(int id, String title, String content, Date publishDate, User user, List<Image> imageList) {
-        this.id = id;
+    public Blog(String title, String content, Date pubDate, User user, List<Image> imageList) {
         this.title = title;
         this.content = content;
-        this.publishDate = publishDate;
+        this.pubDate = pubDate;
         this.user = user;
         this.imageList = imageList;
     }
@@ -67,12 +66,12 @@ public class Blog{
         this.content = content;
     }
 
-    public Date getPublishDate() {
-        return publishDate;
+    public Date getPubDate() {
+        return pubDate;
     }
 
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
+    public void setPubDate(Date pubDate) {
+        this.pubDate = pubDate;
     }
 
     public User getUser() {

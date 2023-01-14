@@ -26,26 +26,27 @@ public class BlogService {
 
     public List<Blog> showBlogs(){
         //find all blogs
-        List<Blog> blogList = blogRepository1.findAll(); //by me
-        return blogList;
+        return blogRepository1.findAll();
     }
 
     public void createAndReturnBlog(Integer userId, String title, String content) {
         //create a blog at the current time
-        Blog blogOjb = new Blog();
-        blogOjb.setTitle(title);
-        blogOjb.setContent(content);
-        List<Blog> listOfBlogs = new ArrayList<>();
+        Blog blog = new Blog();
+        blog.setContent(content);
+        blog.setTitle(title);
+        long milliSecond = System.currentTimeMillis();
 
+        blog.setPubDate(new Date(milliSecond));
 
         //updating the blog details
-        User user = userRepository1.findById(userId).get();
-         listOfBlogs = user.getBlog();
-         listOfBlogs.add(blogOjb);
-         user.setBlog(listOfBlogs);
-         blogOjb.setUser(user);
 
         //Updating the userInformation and changing its blogs
+        User user = userRepository1.findById(userId).get();
+        blog.setUser(user);
+        List<Blog> blogList = user.getBlog();
+        blogList.add(blog);
+        user.setBlog(blogList);
+
         userRepository1.save(user);
 
     }
@@ -54,7 +55,6 @@ public class BlogService {
         //find a blog
         Blog blog = blogRepository1.findById(blogId).get(); //by me
         return blog;
-
     }
 
     public void addImage(Integer blogId, String description, String dimensions){
@@ -62,7 +62,7 @@ public class BlogService {
         Image imageObj = new Image(); //creating image
         imageObj.setDescription(description);
         imageObj.setDimensions(dimensions);
-        Blog blog = blogRepository1.findById(blogId).get();
+        Blog blog = findBlogById(blogId);
         imageObj.setBlog(blog);
         List<Image> listOfImages = blog.getImageList();
         listOfImages.add(imageObj);
